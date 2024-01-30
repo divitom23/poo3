@@ -1,0 +1,120 @@
+import random
+
+#rouler des dees pour certains attributs de la classe npc
+def dice():
+    total = None
+
+    a = random.randint(1,6)
+    b = random.randint(1,6)
+    c = random.randint(1,6)
+    d = random.randint(1,6)
+
+    list = [a, b, c, d]
+    list.sort()
+    list.pop(0)
+    total = sum(list)
+    
+    return total
+    
+
+class npc():
+    def __init__(self):
+        #les attributs de la classe npc
+        self.force = dice()
+        self.Agilite = dice()
+        self.Constitution = dice()
+        self.Intelligence  = dice()
+        self.Sagesse = dice()
+        self.Charisme = dice()
+        
+        self.armure = random.randint(1, 12)
+        self.name = ""
+        self.race = ""
+        self.vie = random.randint(1, 20)
+        self.profession = ""
+    
+    #la methode d affichage des attributs des npcs     
+    def afficher(self):
+        print(self.force, self.Agilite, self.Constitution, self.Intelligence, self.Sagesse, self.Charisme, self.armure, self.name, self.race, self.vie, self.profession)
+
+ 
+
+# hero de type npc
+class hero(npc):
+
+    #methodes des hero pour attaquer une cible
+    def attaque(self, cible):
+        attaqueRoll = random.randint(1, 20)
+
+        #determiner le dommage faite a la cible
+        dommage = 0
+        if attaqueRoll == 20:
+            dommage = random.randint(1, 8)
+            print("attaque critique")
+        elif attaqueRoll == 1:
+            print("skill issue")
+        else:
+            if attaqueRoll > cible.armure:
+                dommage = random.randint(1, 6)
+                print("attaque reussit!!!")
+            else:
+                print("skill issue")
+
+        #les testes
+        #print("Hero dommage: ")
+        #print(dommage)
+
+        cible.subir(dommage)
+    #methodes des hero pour subir du dommage et perdre des vies
+    def subir(self, dommage):
+        self.vie -= dommage
+
+class kobold (npc):
+
+    #methode du kobold pour attacker une cible
+    def attaque(self, cible):
+        dommage = random.randint(1, 6)
+        cible.subir(dommage)
+    #methode du kobold a subir du dommage et perdre des points de vie
+    def subir(self, dommage):
+        self.vie -= dommage
+
+#testes:
+#k1 = kobold()
+#k1.afficher()
+#h1 = hero()
+#h1.afficher()
+
+#k1.attaque(h1)
+#h1.attaque(k1)
+#k1.afficher()
+#h1.afficher()
+
+
+        
+
+
+            
+
+
+
+
+
+    
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
